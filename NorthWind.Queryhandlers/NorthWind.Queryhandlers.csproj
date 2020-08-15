@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="GetAllContractsHandler.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NorthWind.Contracts\NorthWind.Contracts.csproj" />
+    <ProjectReference Include="..\NorthWind.Repositories\NorthWind.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>
