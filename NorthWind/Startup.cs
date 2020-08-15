@@ -15,6 +15,10 @@ using NorthWind.Contracts.Contracts.Query;
 using NorthWind.Contracts.Contracts.Response;
 using NorthWind.Queryhandlers;
 using NorthWind.Queryhandlers.Sample;
+using NorthWind.Repositories.Entities;
+using NorthWind.Repositories.InsurenceContractRepository;
+using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace NorthWind
 {
@@ -32,14 +36,16 @@ namespace NorthWind
         {
             services.AddControllersWithViews();
            var QueryhandlersAsm = AppDomain.CurrentDomain.Load("NorthWind.Queryhandlers");
-            var RepositoriesAsm = AppDomain.CurrentDomain.Load("NorthWind.Repositories");
+            //var RepositoriesAsm = AppDomain.CurrentDomain.Load("NorthWind.Repositories");
             var NorthWindContractsAsm = AppDomain.CurrentDomain.Load("NorthWind.Contracts");
-
-
+            services.AddScoped<IInsurenceContractRepository, InsurenceContractRepository>();
+            services.AddDbContext<DatabaseContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Singleton);
             //services.AddScoped<IRequestHandler<SampleQuery, SampleResponse>, SampleQueryhandler>();
             //services.AddScoped<IRequestHandler<ContractsQuery, ContractsResponse>, GetAllContractsHandler>();
-            services.AddMediatR(QueryhandlersAsm, NorthWindContractsAsm, RepositoriesAsm);
+            services.AddMediatR(QueryhandlersAsm, NorthWindContractsAsm);
+            services.AddAutoMapper(typeof(Startup));
         }
+        
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

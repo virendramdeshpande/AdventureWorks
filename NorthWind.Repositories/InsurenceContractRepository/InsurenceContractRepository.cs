@@ -18,6 +18,14 @@ namespace NorthWind.Repositories.InsurenceContractRepository
             _context = context;
         }
 
+        public async IAsyncEnumerable<ContractsEntity> GetAllContracts()
+        {
+                   await foreach (var item in _context.Contracts)
+                    yield return item;
+         
+            
+           
+        }
         public async Task Update(ContractsEntity contractsEntity)
         {
             var item = _context.Contracts.FirstOrDefault(o => o.Address == contractsEntity.Address && o.Country == contractsEntity.Country &&
@@ -30,7 +38,6 @@ namespace NorthWind.Repositories.InsurenceContractRepository
             }
         }
 
-
         public async Task Delete(ContractsEntity contractsEntity)
         {
             var item = _context.Contracts.FirstOrDefault(o => o.Address == contractsEntity.Address && o.Country == contractsEntity.Country &&
@@ -41,13 +48,22 @@ namespace NorthWind.Repositories.InsurenceContractRepository
                 await _context.SaveChangesAsync();
             }
         }
-
-        public async IAsyncEnumerable<ContractsEntity> GetAllContracts()
+        public async Task<int> Save(ContractsEntity contractsEntity)
         {
-             foreach (var item in await _context.Contracts.ToListAsync())
-                yield return item;
-      
-
+            var contract = new ContractsEntity
+            {
+                Address = contractsEntity.Address,
+                Country = contractsEntity.Country,
+                DateOfBirth = contractsEntity.DateOfBirth,
+                Gender = contractsEntity.Gender,
+                SaleDate = contractsEntity.SaleDate,
+                Name = contractsEntity.Name,
+            };
+            contract.CoveragePlan = GetCoveragePlan(contractsEntity.Country, contractsEntity.SaleDate);
+            contract.NetPrice = GetNetRate(contractsEntity.DateOfBirth, contractsEntity.Gender, contract.CoveragePlan);
+            contract.Id = _context.Contracts.Count() + 1;
+            await _context.Contracts.AddAsync(contract);
+           return await _context.SaveChangesAsync();
         }
 
         private string GetCoveragePlan(string country, DateTime saleDate)
@@ -83,22 +99,6 @@ namespace NorthWind.Repositories.InsurenceContractRepository
             return rate;
         }
 
-        public async Task Save(ContractsEntity contractsEntity)
-        {
-            var contract = new ContractsEntity
-            {
-                Address = contractsEntity.Address,
-                Country = contractsEntity.Country,
-                DateOfBirth = contractsEntity.DateOfBirth,
-                Gender = contractsEntity.Gender,
-                SaleDate = contractsEntity.SaleDate,
-                Name = contractsEntity.Name,
-            };
-            contract.CoveragePlan = GetCoveragePlan(contractsEntity.Country, contractsEntity.SaleDate);
-            contract.NetPrice = GetNetRate(contractsEntity.DateOfBirth, contractsEntity.Gender, contract.CoveragePlan);
-            contract.Id = _context.Contracts.Count() + 1;
-            await _context.Contracts.AddAsync(contract);
-            await _context.SaveChangesAsync();
-        }
+
     }
 }

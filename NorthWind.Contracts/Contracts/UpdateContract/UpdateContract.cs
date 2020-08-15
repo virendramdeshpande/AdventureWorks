@@ -1,10 +1,11 @@
 ﻿using MediatR;
-using NorthWind.Contracts.Contracts.Response;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace NorthWind.Contracts.Contracts.Query
+namespace NorthWind.Contracts.Contracts.UpdateContract
 {
-    public class ContractsQuery : IRequest<ContractsResponse>
+    public class UpdateContract: IRequest<UpdateContractResponse>
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -19,5 +20,4 @@ namespace NorthWind.Contracts.Contracts.Query
 
         public decimal NetPrice { get; set; }
     }
-
 }

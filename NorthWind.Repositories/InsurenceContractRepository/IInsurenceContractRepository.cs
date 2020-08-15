@@ -9,7 +9,7 @@ namespace NorthWind.Repositories.InsurenceContractRepository
     public interface IInsurenceContractRepository
     {
         IAsyncEnumerable<ContractsEntity> GetAllContracts();
-        Task Save(ContractsEntity contractsEntity);
+        Task<int> Save(ContractsEntity contractsEntity);
         Task Update(ContractsEntity contractsEntity);
         Task Delete(ContractsEntity contractsEntity);
     }

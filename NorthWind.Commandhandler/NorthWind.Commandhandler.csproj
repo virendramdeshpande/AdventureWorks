@@ -4,4 +4,13 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NorthWind.Contracts\NorthWind.Contracts.csproj" />
+    <ProjectReference Include="..\NorthWind.Repositories\NorthWind.Repositories.csproj" />
+  </ItemGroup>
+
 </Project>

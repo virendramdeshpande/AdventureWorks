@@ -1,10 +1,11 @@
-﻿using MediatR;
-using NorthWind.Contracts.Contracts.Response;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace NorthWind.Contracts.Contracts.Query
+namespace NorthWind.Models
 {
-    public class ContractsQuery : IRequest<ContractsResponse>
+    public class ContractsModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -18,6 +19,6 @@ namespace NorthWind.Contracts.Contracts.Query
         public string CoveragePlan { get; set; }
 
         public decimal NetPrice { get; set; }
-    }
 
+    }
 }
