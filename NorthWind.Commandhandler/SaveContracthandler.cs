@@ -26,13 +26,13 @@ namespace NorthWind.Commandhandler
 
         public async Task<SaveContractResponse> Handle(SaveContract request, CancellationToken cancellationToken)
         {
-            SaveContractResponse saveContractResponse;
+            SaveContractResponse saveContractResponse= new SaveContractResponse();
             try
             {
                 var contractsEntity = _mapper.Map<ContractsEntity>(request);
 
-                int Count = await _InsurenceContractRepository.Save(contractsEntity);
-                if (Count == 1)
+                saveContractResponse.Data.AffectedRecords = await _InsurenceContractRepository.SaveContract(contractsEntity);
+                if (saveContractResponse.Data.AffectedRecords == 1)
                 {
 
                     saveContractResponse = new SaveContractResponse();
@@ -41,7 +41,7 @@ namespace NorthWind.Commandhandler
                 else
                 {
 
-                    throw new Exception();
+                    throw new Exception("Contract not Found");
                 }
             }
             catch (Exception ex)

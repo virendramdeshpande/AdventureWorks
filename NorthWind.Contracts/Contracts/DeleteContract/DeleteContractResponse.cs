@@ -8,6 +8,7 @@ namespace NorthWind.Contracts.Contracts.DeleteContract
 
     public class DeleteContractResponse : ResponseBase
     {
+        public DeleteContractResult Data { get; set; }
         public DeleteContractResponse() : base()
         {
 
@@ -16,5 +17,9 @@ namespace NorthWind.Contracts.Contracts.DeleteContract
         {
 
         }
+    }
+    public class DeleteContractResult
+    {
+        public int AffectedRecords { get; set; }
     }
 }

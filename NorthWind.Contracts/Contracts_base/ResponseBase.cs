@@ -7,7 +7,7 @@ namespace NorthWind.Contracts.Contracts_base
     public class ResponseBase
     {
         public bool isSuccessful { get; set; }
-        Exception exception { get; set; }
+        public Exception exception { get; set; }
         public ResponseBase()
         {
             isSuccessful = true;

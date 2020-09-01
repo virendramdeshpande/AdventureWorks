@@ -26,14 +26,13 @@ namespace NorthWind.Commandhandler
 
         public async Task<DeleteContractResponse> Handle(DeleteContract request, CancellationToken cancellationToken)
         {
-            DeleteContractResponse deleteContractResponse;
+            DeleteContractResponse deleteContractResponse=new DeleteContractResponse();
             try
             {
                 var contractsEntity = _mapper.Map<ContractsEntity>(request);
 
-                int Count = await _InsurenceContractRepository.Save(contractsEntity);
+                deleteContractResponse.Data.AffectedRecords = await _InsurenceContractRepository.DeleteContract(contractsEntity);
 
-                deleteContractResponse = new DeleteContractResponse();
                 return deleteContractResponse;
             }
             catch (Exception ex)

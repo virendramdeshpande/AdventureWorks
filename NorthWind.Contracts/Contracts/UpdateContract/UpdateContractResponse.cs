@@ -7,6 +7,7 @@ namespace NorthWind.Contracts.Contracts.UpdateContract
 {
     public class UpdateContractResponse:ResponseBase
     {
+        public UpdateContractResult Data { get; set; }
         public UpdateContractResponse() : base()
         {
 
@@ -15,5 +16,9 @@ namespace NorthWind.Contracts.Contracts.UpdateContract
         {
 
         }
+    }
+    public class UpdateContractResult
+    {
+        public int AffectedRecords { get; set; }
     }
 }

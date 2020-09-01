@@ -23,12 +23,12 @@ namespace NorthWind.Commandhandler
 
         public async Task<UpdateContractResponse> Handle(UpdateContract request, CancellationToken cancellationToken)
         {
-            UpdateContractResponse updateContractResponse;
+            UpdateContractResponse updateContractResponse=new UpdateContractResponse();
             try
             {
                 var contractsEntity = _mapper.Map<ContractsEntity>(request);
 
-                int Count = await _InsurenceContractRepository.Save(contractsEntity);
+                updateContractResponse.Data.AffectedRecords = await _InsurenceContractRepository.SaveContract(contractsEntity);
 
                 updateContractResponse =  new UpdateContractResponse();
                 return updateContractResponse;

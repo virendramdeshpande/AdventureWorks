@@ -26,7 +26,7 @@ namespace NorthWind.Repositories.InsurenceContractRepository
             
            
         }
-        public async Task Update(ContractsEntity contractsEntity)
+        public async Task<int> UpdateContract(ContractsEntity contractsEntity)
         {
             var item = _context.Contracts.FirstOrDefault(o => o.Address == contractsEntity.Address && o.Country == contractsEntity.Country &&
                                  o.DateOfBirth == contractsEntity.DateOfBirth && o.Gender == contractsEntity.Gender && o.SaleDate == contractsEntity.SaleDate && o.Name == contractsEntity.Name);
@@ -34,21 +34,30 @@ namespace NorthWind.Repositories.InsurenceContractRepository
             {
                 item.CoveragePlan = GetCoveragePlan(contractsEntity.Country, contractsEntity.SaleDate);
                 item.NetPrice = GetNetRate(contractsEntity.DateOfBirth, contractsEntity.Gender, item.CoveragePlan);
-                await _context.SaveChangesAsync();
+                return  await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception("Record Not Found");
             }
         }
 
-        public async Task Delete(ContractsEntity contractsEntity)
+        public async Task<int> DeleteContract(ContractsEntity contractsEntity)
         {
             var item = _context.Contracts.FirstOrDefault(o => o.Address == contractsEntity.Address && o.Country == contractsEntity.Country &&
                                  o.DateOfBirth == contractsEntity.DateOfBirth && o.Gender == contractsEntity.Gender && o.SaleDate == contractsEntity.SaleDate && o.Name == contractsEntity.Name);
             if (item != null)
             {
                 _context.Contracts.Remove(item);
-                await _context.SaveChangesAsync();
+                return await _context.SaveChangesAsync();
             }
+            else
+            {
+                throw new Exception("Record Not Found");
+            }
+            
         }
-        public async Task<int> Save(ContractsEntity contractsEntity)
+        public async Task<int> SaveContract(ContractsEntity contractsEntity)
         {
             var contract = new ContractsEntity
             {

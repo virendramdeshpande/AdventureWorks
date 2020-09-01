@@ -7,6 +7,7 @@ namespace NorthWind.Contracts.Contracts.SaveContract
 {
     public class SaveContractResponse : ResponseBase
     {
+        public SaveContractResult Data { get; set; }
         public SaveContractResponse() : base()
         {
 
@@ -15,5 +16,9 @@ namespace NorthWind.Contracts.Contracts.SaveContract
         {
 
         }
+    }
+    public class SaveContractResult
+    {
+        public int AffectedRecords { get; set; }
     }
 }
