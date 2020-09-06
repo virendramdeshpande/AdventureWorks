@@ -1,12 +1,7 @@
 ﻿using AutoMapper;
-using NorthWind.Contracts.Contracts.Response;
-using NorthWind.Contracts.Contracts.UpdateContract;
+using NorthWind.Contracts.Customers.Query;
 using NorthWind.Models;
-using NorthWind.Repositories.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using NorthWind.Repositories.AdventureWorks;
 
 namespace NorthWind
 {
@@ -14,11 +9,10 @@ namespace NorthWind
     {
         public AutoMapping()
         {
-            CreateMap<ContractsEntity, ContractsQueryResult>(); // means you want to map from User to UserDTO
-            CreateMap<ContractsQueryResult, ContractsModel>();
-
-            CreateMap<ContractsEntity, UpdateContract>(); // means you want to map from User to UserDTO
-         
+           CreateMap<Customer, CustomerSearchQueryResult>();
+            CreateMap<CustomerSearchQueryResult, CustomerSearchResultModel>(); // means you want to map from User to UserDTO
+            
         }
+        
     }
 }
